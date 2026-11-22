@@ -1,0 +1,309 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1119">
+<title>D-TECH | Portal de Reclutamiento</title>
+<style>
+:root{
+ --bg:#0b1119;--panel:#111c29;--line:#253648;
+ --blue:#32a9e8;--text:#e7eff6;--muted:#91a4b6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
+header{
+ height:70px;border-bottom:1px solid var(--line);
+ display:flex;align-items:center;justify-content:space-between;
+ padding:0 7%;background:#0e1722;
+ position:sticky;top:0;z-index:5
+}
+.logo{font-weight:900;font-size:22px;letter-spacing:2px}
+.logo span,h1 span{color:var(--blue)}
+nav{display:flex;gap:25px}
+a{color:var(--muted);text-decoration:none;font-size:13px}
+a:hover{color:var(--blue)}
+button,.btn{
+ display:inline-block;background:var(--blue);color:#06121c;
+ border:0;padding:13px 20px;font-weight:bold;
+ cursor:pointer;border-radius:5px;text-decoration:none
+}
+button:hover,.btn:hover{background:#70caff}
+button:disabled{opacity:.6;cursor:wait}
+.hero{
+ padding:110px 8%;
+ background:linear-gradient(110deg,#101e2d,#0b1119 75%);
+ border-bottom:1px solid var(--line)
+}
+.tag{color:var(--blue);font-size:12px;letter-spacing:3px;font-weight:bold}
+h1{font-size:clamp(38px,7vw,76px);line-height:1.05;margin:20px 0}
+.hero p{color:var(--muted);max-width:550px;line-height:1.8}
+section{padding:75px 8%;scroll-margin-top:75px}
+.heading{font-size:28px;margin:0 0 12px}
+.sub{color:var(--muted);margin-bottom:35px;line-height:1.7;max-width:800px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:17px}
+.card{background:var(--panel);border:1px solid var(--line);padding:24px;border-radius:7px}
+.card h3{margin-top:0}
+.card p{color:var(--muted);font-size:14px;line-height:1.7}
+.label{color:var(--blue);font-size:11px;letter-spacing:1px}
+.requirements{background:#0e1722}
+form{
+ max-width:700px;background:var(--panel);
+ border:1px solid var(--line);padding:28px;border-radius:8px
+}
+label{display:block;font-size:13px;margin:17px 0 8px}
+input,select,textarea{
+ width:100%;background:#0b131d;border:1px solid var(--line);
+ padding:13px;color:white;border-radius:5px;outline:none;
+ font:inherit
+}
+input:focus,select:focus,textarea:focus{border-color:var(--blue)}
+textarea{resize:vertical;min-height:120px}
+form button{width:100%;margin-top:22px}
+#result{
+ display:none;padding:17px;margin-top:20px;
+ background:#102b31;border:1px solid #237b79;
+ border-radius:5px;color:#9ce9d5;line-height:1.6;
+ overflow-wrap:anywhere
+}
+#result.error{
+ background:#32191f;border-color:#8d3945;color:#ffb1b8
+}
+footer{
+ border-top:1px solid var(--line);
+ padding:35px 8%;color:var(--muted);font-size:12px
+}
+footer p{line-height:1.7}
+@media(max-width:650px){
+ nav{gap:12px}
+ nav a{font-size:11px}
+ .hero{padding:75px 7%}
+ section{padding:55px 7%}
+ header{padding:0 5%}
+}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="logo"><span>D-TECH</span></div>
+ <nav>
+  <a href="#about">SOBRE NOSOTROS</a>
+  <a href="#jobs">POSICIONES</a>
+  <a href="#apply">POSTULARSE</a>
+ </nav>
+</header>
+
+<div class="hero">
+ <div class="tag">DIVISIÓN DE RECURSOS HUMANOS / 2026</div>
+ <h1>CONSTRUYE EL<br><span>FUTURO.</span></h1>
+ <p>
+  Únete a D-TECH. Participa en el desarrollo, investigación,
+  administración y supervisión de tecnologías y sistemas.
+ </p>
+ <a class="btn" href="#jobs">EXPLORAR POSICIONES →</a>
+</div>
+
+<section id="about">
+ <div class="tag">01 / SOBRE NOSOTROS</div>
+ <h2 class="heading">Más que tecnología.</h2>
+ <p class="sub">
+  D-TECH es una corporación sin fines de lucro dedicada al desarrollo,
+  la investigación, la infraestructura y la administración de fenómenos
+  extraordinarios. Nuestro trabajo requiere responsabilidad, disciplina
+  e innovación.
+ </p>
+
+ <div class="grid">
+  <div class="card">
+   <div class="label">01 — INNOVACIÓN</div>
+   <h3>Investigación</h3>
+   <p>Explora nuevas tecnologías y contribuye al desarrollo científico.</p>
+  </div>
+  <div class="card">
+   <div class="label">02 — SEGURIDAD</div>
+   <h3>Protección</h3>
+   <p>Ayuda a mantener la integridad de los sistemas y complejos de D-TECH.</p>
+  </div>
+  <div class="card">
+   <div class="label">03 — DESARROLLO</div>
+   <h3>Ingeniería</h3>
+   <p>Construye y mantiene la infraestructura tecnológica de la corporación.</p>
+  </div>
+ </div>
+</section>
+
+<section id="jobs" class="requirements">
+ <div class="tag">02 / OPORTUNIDADES</div>
+ <h2 class="heading">Posiciones disponibles.</h2>
+
+ <div class="grid">
+  <div class="card">
+   <div class="label">TECNOLOGÍA</div>
+   <h3>Desarrollador de Software</h3>
+   <p>Desarrollo y mantenimiento de aplicaciones, sistemas y software interno.</p>
+   <p>Requisitos: conocimientos de programación y resolución de problemas.</p>
+  </div>
+
+  <div class="card">
+   <div class="label">INVESTIGACIÓN</div>
+   <h3>Asistente de Investigación</h3>
+   <p>Apoyo en investigaciones tecnológicas y documentación.</p>
+   <p>Requisitos: pensamiento analítico y atención a los detalles.</p>
+  </div>
+
+  <div class="card">
+   <div class="label">SEGURIDAD</div>
+   <h3>Operador de Sistemas</h3>
+   <p>Supervisión y administración de los sistemas organizacionales.</p>
+   <p>Requisitos: responsabilidad y conocimientos técnicos básicos.</p>
+  </div>
+
+  <div class="card">
+   <div class="label">ADMINISTRACIÓN</div>
+   <h3>Asistente Administrativo</h3>
+   <p>Documentación, coordinación interna y apoyo organizacional.</p>
+   <p>Requisitos: organización y habilidades de comunicación.</p>
+  </div>
+ </div>
+</section>
+
+<section id="apply">
+ <div class="tag">03 / PROCESO DE POSTULACIÓN</div>
+ <h2 class="heading">Envía tu solicitud.</h2>
+ <p class="sub">
+  Completa el formulario para registrar tu interés en formar parte de D-TECH.
+ </p>
+
+ <form id="application">
+  <label for="name">Nombre completo</label>
+  <input
+   id="name"
+   name="name"
+   required
+   maxlength="80"
+   minlength="1"
+   autocomplete="name"
+   placeholder="Tu nombre completo"
+  >
+
+  <label for="email">Correo electrónico</label>
+  <input
+   id="email"
+   name="email"
+   type="email"
+   required
+   maxlength="254"
+   autocomplete="email"
+   placeholder="ejemplo@email.com"
+  >
+
+  <label for="department">Departamento</label>
+  <select id="department" name="department" required>
+   <option value="">Selecciona un departamento</option>
+   <option value="Tecnologia">Tecnología</option>
+   <option value="Investigacion">Investigación</option>
+   <option value="Seguridad">Seguridad</option>
+   <option value="Administracion">Administración</option>
+  </select>
+
+  <label for="position">Posición</label>
+  <select id="position" name="position" required>
+   <option value="">Selecciona una posición</option>
+   <option value="Desarrollador de Software">Desarrollador de Software</option>
+   <option value="Asistente de Investigacion">Asistente de Investigación</option>
+   <option value="Operador de Sistemas">Operador de Sistemas</option>
+   <option value="Asistente Administrativo">Asistente Administrativo</option>
+  </select>
+
+  <label for="motivation">¿Por qué quieres unirte a D-TECH?</label>
+  <textarea
+   id="motivation"
+   name="motivation"
+   required
+   minlength="1"
+   maxlength="1000"
+   placeholder="Cuéntanos tu motivación..."
+  ></textarea>
+
+  <button type="submit">ENVIAR SOLICITUD →</button>
+  <div id="result" role="status" aria-live="polite"></div>
+
+  <p style="font-size:11px;color:#91a4b6;line-height:1.6">
+   La información proporcionada será utilizada para gestionar el proceso
+   de postulación de D-TECH. Envía únicamente información que tengas
+   autorización para compartir.
+  </p>
+ </form>
+</section>
+
+<footer>
+ <div class="logo"><span>D-TECH</span></div>
+ <p>DIVISIÓN DE RECURSOS HUMANOS</p>
+ <p>© 2026 D-TECH. Todos los derechos reservados.</p>
+ <p>PORTAL DE RECLUTAMIENTO / INTERFAZ ORGANIZACIONAL</p>
+</footer>
+
+<script>
+const form=document.getElementById("application");
+const result=document.getElementById("result");
+const button=form.querySelector('button[type="submit"]');
+
+form.addEventListener("submit",async function(event){
+ event.preventDefault();
+
+ if(!form.reportValidity())return;
+
+ const data={
+  name:document.getElementById("name").value.trim(),
+  email:document.getElementById("email").value.trim(),
+  department:document.getElementById("department").value,
+  position:document.getElementById("position").value,
+  motivation:document.getElementById("motivation").value.trim()
+ };
+
+ button.disabled=true;
+ button.textContent="ENVIANDO...";
+ result.style.display="block";
+ result.classList.remove("error");
+ result.textContent="Enviando solicitud...";
+
+ try{
+  const response=await fetch("/api/applications",{
+   method:"POST",
+   headers:{"Content-Type":"application/json"},
+   body:JSON.stringify(data),
+   credentials:"same-origin"
+  });
+
+  let answer;
+
+  try{
+   answer=await response.json();
+  }catch{
+   throw new Error("El servidor devolvió una respuesta inválida.");
+  }
+
+  if(!response.ok){
+   throw new Error(answer.error||"No se pudo enviar la solicitud.");
+  }
+
+  result.textContent=
+   "SOLICITUD RECIBIDA. Tu referencia es: "+answer.reference+
+   ". Guarda este código para futuras consultas.";
+
+  form.reset();
+
+ }catch(error){
+  result.classList.add("error");
+  result.textContent="ERROR: "+error.message;
+ }finally{
+  button.disabled=false;
+  button.textContent="ENVIAR SOLICITUD →";
+ }
+});
+</script>
+</body>
+</html>

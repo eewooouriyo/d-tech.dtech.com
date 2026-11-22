@@ -1,0 +1,628 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080e16">
+<title>D-TECH | HR Administration</title>
+<style>
+:root{
+ --bg:#080e16;--panel:#101a27;--panel2:#142233;
+ --border:#26394d;--text:#e8f0f8;--muted:#91a5b9;
+ --blue:#36a9e8;--green:#25a879;--red:#d65360;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+ margin:0;background:var(--bg);color:var(--text);
+ font-family:Arial,Helvetica,sans-serif;min-height:100vh
+}
+header{
+ min-height:75px;padding:0 7%;background:#0d1723;
+ border-bottom:1px solid var(--border);
+ display:flex;align-items:center;justify-content:space-between;
+ position:sticky;top:0;z-index:5
+}
+.brand{display:flex;align-items:center;gap:13px}
+.logo{
+ width:37px;height:37px;border:1px solid var(--blue);
+ border-radius:8px;display:grid;place-items:center;
+ color:var(--blue);font-weight:bold;font-size:18px
+}
+.brand strong{letter-spacing:1px;font-size:14px}
+.header-tag{font-size:11px;color:var(--muted);letter-spacing:1px}
+main{max-width:1150px;margin:42px auto;padding:0 22px 60px}
+h1{font-size:27px;margin:0 0 9px}
+h2{font-size:19px;margin:0 0 8px}
+h3{font-size:16px;margin:0 0 10px}
+p{line-height:1.6}
+.muted{color:var(--muted);font-size:13px;line-height:1.7}
+.eyebrow{color:var(--blue);font-size:10px;font-weight:bold;letter-spacing:2px;margin-bottom:10px}
+.page-heading{margin-bottom:25px}
+.card{
+ background:var(--panel);border:1px solid var(--border);
+ border-radius:10px;padding:21px;margin:14px 0
+}
+.login-card{max-width:470px;margin:90px auto}
+input,textarea{
+ width:100%;padding:13px 14px;border-radius:7px;
+ border:1px solid var(--border);background:#0b1420;
+ color:var(--text);font:inherit;outline:none
+}
+input:focus,textarea:focus{border-color:var(--blue)}
+input{margin:9px 0 13px}
+textarea{resize:vertical;line-height:1.65}
+label{display:block;font-size:12px;color:var(--muted);margin:13px 0 5px}
+button{
+ border:1px solid transparent;border-radius:6px;
+ padding:11px 15px;background:var(--blue);color:#06121c;
+ font-weight:bold;font-size:11px;letter-spacing:.5px;
+ cursor:pointer;transition:.15s;margin:4px 3px 4px 0
+}
+button:hover{filter:brightness(1.13);transform:translateY(-1px)}
+button:disabled{opacity:.5;cursor:wait}
+button.neutral{background:#26394d;color:var(--text)}
+button.success{background:var(--green);color:white}
+button.danger{background:#7f303c;color:white}
+.actions{display:flex;flex-wrap:wrap;gap:5px;margin-top:17px;padding-top:13px;border-top:1px solid var(--border)}
+.toolbar{display:flex;flex-wrap:wrap;gap:7px;margin:20px 0 25px}
+.status{
+ display:inline-flex;align-items:center;padding:5px 10px;
+ border-radius:20px;font-size:10px;font-weight:bold;letter-spacing:.5px;
+ background:#29394a;color:#c5d5e3
+}
+.status.SELECCIONADO{background:#164b3b;color:#75e2b3}
+.status.RECHAZADA{background:#522832;color:#ff9da7}
+.status.PENDIENTE{background:#514321;color:#f2ce78}
+.application-info{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:16px}
+.info-item{background:#0b1420;border:1px solid #1e3043;border-radius:7px;padding:12px;min-width:0}
+.info-label{display:block;font-size:10px;color:var(--muted);letter-spacing:1px;margin-bottom:7px}
+.info-value{font-size:13px;overflow-wrap:anywhere;white-space:pre-wrap}
+.motivation{margin-top:12px;background:#0b1420;border:1px solid #1e3043;border-radius:7px;padding:14px}
+.motivation p{font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere;margin:7px 0 0}
+.section{margin-top:40px;padding-top:28px;border-top:1px solid var(--border);scroll-margin-top:95px}
+.section-heading{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+.section-number{color:var(--blue);font-size:11px;letter-spacing:2px}
+#panel{display:none}
+#error{color:#ff8585;font-size:13px}
+#copyResult{min-height:20px}
+#mailBody{min-height:470px;font-family:Arial,sans-serif;font-size:13px}
+.email-preview{background:#0b1420;border:1px solid var(--border);border-radius:8px;padding:16px;margin-top:15px}
+.activity-item{padding:13px 15px;background:#0b1420;border:1px solid #1e3043;border-radius:7px;margin:9px 0;font-size:12px;line-height:1.6;overflow-wrap:anywhere}
+.empty{padding:28px;text-align:center;color:var(--muted);background:#0b1420;border:1px dashed var(--border);border-radius:8px;font-size:13px}
+footer{border-top:1px solid var(--border);padding:20px 7%;color:var(--muted);font-size:10px;letter-spacing:1px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+@media(max-width:600px){
+ header{padding:0 18px}
+ main{margin:28px auto;padding:0 14px 40px}
+ .application-info{grid-template-columns:1fr}
+ .login-card{margin:55px auto}
+ h1{font-size:23px}
+ button{padding:11px 12px}
+}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="brand">
+  <div class="logo">D</div>
+  <div>
+   <strong>D-TECH CORPORATION</strong>
+   <div class="muted">HUMAN RESOURCES DIVISION</div>
+  </div>
+ </div>
+ <span class="header-tag">HR SYSTEM / 01</span>
+</header>
+
+<main>
+
+<section id="login">
+ <div class="card login-card">
+  <div class="eyebrow">D-TECH INTERNAL SYSTEM</div>
+  <h1>Acceso administrativo</h1>
+  <p class="muted">Autenticación exclusiva para el Departamento de Recursos Humanos.</p>
+  <label for="password">CONTRASEÑA ADMINISTRATIVA</label>
+  <input id="password" type="password" maxlength="256" autocomplete="current-password" placeholder="Introduce tu contraseña">
+  <button id="loginButton" style="width:100%" onclick="login()">INICIAR SESIÓN →</button>
+  <p id="error" role="alert"></p>
+  <p class="muted">Acceso restringido. Las acciones administrativas quedan registradas.</p>
+ </div>
+</section>
+
+<section id="panel">
+
+ <div class="page-heading">
+  <div class="eyebrow">HUMAN RESOURCES / DASHBOARD</div>
+  <h1>Panel de administración</h1>
+  <p class="muted">Gestión de candidatos, procesos de selección y comunicaciones oficiales.</p>
+ </div>
+
+<div class="toolbar">
+ <button onclick="loadApplications()">↻ ACTUALIZAR SOLICITUDES</button>
+ <button class="neutral" onclick="loadActivity()">VER ACTIVIDAD</button>
+ <button class="success" onclick="createBackup()">CREAR COPIA DE SEGURIDAD</button>
+ <button class="danger" onclick="logout()">CERRAR SESIÓN</button>
+</div>
+
+ <section class="section" style="margin-top:0;padding-top:0;border:0">
+  <div class="section-heading">
+   <div>
+    <div class="section-number">01 / APPLICATIONS</div>
+    <h2>Solicitudes recibidas</h2>
+    <p class="muted">Revisa los perfiles y administra las decisiones de contratación.</p>
+   </div>
+  </div>
+  <div id="applications"><div class="empty">Cargando solicitudes...</div></div>
+ </section>
+
+ <section class="section" id="emailComposer">
+  <div class="section-heading">
+   <div>
+    <div class="section-number">02 / COMMUNICATIONS</div>
+    <h2>Generador de comunicaciones</h2>
+    <p class="muted">Prepara los correos oficiales de contratación.</p>
+   </div>
+   <span class="status">EMAIL SYSTEM</span>
+  </div>
+
+  <div class="email-preview">
+   <label for="mailTo">DESTINATARIO</label>
+   <input id="mailTo" readonly placeholder="Selecciona una solicitud aceptada">
+
+   <label for="mailSubject">ASUNTO</label>
+   <input id="mailSubject" readonly value="D-TECH CORPORATION | Notificación de contratación">
+
+   <label for="mailBody">CONTENIDO DEL MENSAJE</label>
+   <textarea id="mailBody" readonly placeholder="El contenido del correo aparecerá aquí..."></textarea>
+
+   <div class="actions">
+    <button onclick="copyEmail()">COPIAR CORREO COMPLETO</button>
+    <button class="neutral" onclick="copyBody()">COPIAR CONTENIDO</button>
+   </div>
+   <p id="copyResult" class="muted" aria-live="polite"></p>
+  </div>
+ </section>
+
+ <section class="section">
+  <div class="section-heading">
+   <div>
+    <div class="section-number">03 / AUDIT LOG</div>
+    <h2>Registro de actividad</h2>
+    <p class="muted">Historial de acciones realizadas en el panel administrativo.</p>
+   </div>
+  </div>
+  <div id="activity"><div class="empty">Sin actividad cargada.</div></div>
+ </section>
+
+</section>
+</main>
+
+<footer>
+ <span>D-TECH CORPORATION © 2026</span>
+ <span>TECHNOLOGY. RESEARCH. CONTROL. PROTECT.</span>
+</footer>
+
+<script>
+const $=id=>document.getElementById(id);
+async function createBackup(){
+ if(!confirm("¿Crear una copia de seguridad de la base de datos?"))return;
+
+ try{
+  const result=await api("/api/admin/backup",{});
+  alert("Copia creada correctamente:\n"+result.backup);
+  await loadActivity();
+ }catch(e){
+  alert("Error al crear la copia: "+e.message);
+ }
+}
+async function api(url,data){
+ const response=await fetch(url,{
+  method:"POST",
+  headers:{"Content-Type":"application/json"},
+  credentials:"same-origin",
+  body:JSON.stringify(data)
+ });
+
+ let result;
+
+ try{
+  result=await response.json();
+ }catch{
+  throw new Error("Respuesta inválida del servidor.");
+ }
+
+ if(!response.ok)throw new Error(result.error||"Error del servidor");
+ return result;
+}
+
+async function getApi(url){
+ const response=await fetch(url,{
+  method:"GET",
+  credentials:"same-origin",
+  cache:"no-store"
+ });
+
+ if(response.status===401){
+  await logout(false);
+  throw new Error("La sesión ha caducado. Inicia sesión de nuevo.");
+ }
+
+ let result;
+
+ try{
+  result=await response.json();
+ }catch{
+  throw new Error("Respuesta inválida del servidor.");
+ }
+
+ if(!response.ok)throw new Error(result.error||"Error del servidor");
+ return result;
+}
+
+async function login(){
+ const button=$("loginButton");
+ button.disabled=true;
+ $("error").textContent="";
+
+ try{
+  await api("/api/admin/login",{password:$("password").value});
+  $("login").style.display="none";
+  $("panel").style.display="block";
+  $("password").value="";
+  await Promise.all([loadApplications(),loadActivity()]);
+ }catch(e){
+  $("error").textContent=e.message;
+ }finally{
+  button.disabled=false;
+ }
+}
+
+function element(tag,text,className){
+ const el=document.createElement(tag);
+ el.textContent=text;
+ if(className)el.className=className;
+ return el;
+}
+
+async function loadApplications(){
+ const root=$("applications");
+
+ try{
+  const data=await getApi("/api/admin/applications");
+  root.replaceChildren();
+
+  if(!Array.isArray(data)||!data.length){
+   root.append(element("div","No hay solicitudes registradas.","empty"));
+   return;
+  }
+
+  data.slice().reverse().forEach(a=>{
+   const card=element("article","");
+   card.className="card";
+
+   const heading=element("div","");
+   const title=element("h3",a.name+" — "+a.position);
+   const status=element("span",a.status||"PENDIENTE","status "+(a.status||"PENDIENTE"));
+   const info=element("p",a.reference+"  |  "+a.date,"muted");
+
+   heading.append(title,status,info);
+
+   const grid=element("div","");
+   grid.className="application-info";
+
+   [
+    ["CORREO",a.email],
+    ["DEPARTAMENTO",a.department],
+    ["CARGO SOLICITADO",a.position],
+    ["REFERENCIA",a.reference]
+   ].forEach(([label,value])=>{
+    const item=element("div","");
+    item.className="info-item";
+    item.append(element("span",label,"info-label"));
+    item.append(element("div",value||"No especificado","info-value"));
+    grid.append(item);
+   });
+
+   const motivation=element("div","");
+   motivation.className="motivation";
+   motivation.append(element("span","MOTIVACIÓN DEL CANDIDATO","info-label"));
+   motivation.append(element("p",a.motivation||"Sin información."));
+
+   const actions=element("div","");
+   actions.className="actions";
+
+   const accept=element("button","ACEPTAR","success");
+   const reject=element("button","RECHAZAR","danger");
+   const remove=element("button","ELIMINAR","neutral");
+
+   accept.onclick=()=>acceptApplication(a);
+   reject.onclick=()=>rejectApplication(a);
+   remove.onclick=()=>deleteApplication(a);
+
+   actions.append(accept,reject,remove);
+   card.append(heading,grid,motivation,actions);
+   root.append(card);
+  });
+
+ }catch(e){
+  root.replaceChildren(element("div",e.message,"empty"));
+ }
+}
+
+async function changeStatus(a,status){
+ if(!confirm("¿Cambiar el estado de "+a.name+" a "+status+"?"))return;
+
+ try{
+  await api("/api/admin/status",{
+   reference:a.reference,
+   status
+  });
+  await loadApplications();
+  await loadActivity();
+ }catch(e){alert(e.message)}
+}
+
+async function acceptApplication(a){
+ if(!confirm("¿Aceptar a "+a.name+" y preparar el correo oficial?"))return;
+
+ const draft=window.open("about:blank","_blank");
+
+ try{
+  await api("/api/admin/status",{
+   reference:a.reference,
+   status:"SELECCIONADO"
+  });
+
+  prepareEmail(a);
+
+  const params=new URLSearchParams({
+   view:"cm",
+   fs:"1",
+   to:a.email,
+   su:$("mailSubject").value,
+   body:$("mailBody").value
+  });
+
+  const gmail="https://mail.google.com/mail/?"+params.toString();
+
+  if(draft){
+   draft.location.href=gmail;
+  }else{
+   alert("Gmail fue bloqueado. El correo está preparado abajo para copiarlo manualmente.");
+  }
+
+  await loadApplications();
+  await loadActivity();
+
+ }catch(e){
+  if(draft)draft.close();
+  alert(e.message);
+ }
+}
+
+async function rejectApplication(a){
+ if(!confirm("¿Rechazar la solicitud de "+a.name+" y preparar el correo de notificación?"))return;
+
+ const draft=window.open("about:blank","_blank");
+
+ try{
+  await api("/api/admin/status",{
+   reference:a.reference,
+   status:"RECHAZADA"
+  });
+
+  prepareRejectionEmail(a);
+
+  const params=new URLSearchParams({
+   view:"cm",
+   fs:"1",
+   to:a.email,
+   su:$("mailSubject").value,
+   body:$("mailBody").value
+  });
+
+  const gmail="https://mail.google.com/mail/?"+params.toString();
+
+  if(draft){
+   draft.location.href=gmail;
+  }else{
+   alert("Gmail fue bloqueado. El correo está preparado abajo para copiarlo manualmente.");
+  }
+
+  await loadApplications();
+  await loadActivity();
+
+ }catch(e){
+  if(draft)draft.close();
+  alert(e.message);
+ }
+}
+
+function prepareRejectionEmail(a){
+ const body=`D-TECH CORPORATION
+Departamento de Recursos Humanos
+COMUNICACIÓN OFICIAL — CONFIDENCIAL
+
+Estimado/a ${a.name}:
+
+Agradecemos sinceramente el interés que ha demostrado en formar parte de D-TECH CORPORATION y el tiempo dedicado a completar nuestro proceso de selección.
+
+Después de revisar cuidadosamente su solicitud y evaluar su perfil, lamentamos informarle que no ha sido seleccionado/a para esta convocatoria.
+
+Esta decisión corresponde exclusivamente al proceso de selección actual y no representa una valoración negativa de sus capacidades o experiencia.
+
+Le agradecemos nuevamente su interés en nuestra organización y le deseamos éxito en sus futuros proyectos profesionales.
+
+INFORMACIÓN DE LA SOLICITUD
+
+Estado: NO SELECCIONADO/A
+Departamento solicitado: ${a.department||"No especificado"}
+Cargo solicitado: ${a.position||"No especificado"}
+Referencia: ${a.reference}
+
+Atentamente,
+
+DEPARTAMENTO DE RECURSOS HUMANOS
+D-TECH CORPORATION
+
+Technology. Research. Control. Protect.
+
+D-TECH // HUMAN RESOURCES DIVISION
+DOCUMENT ID: HR-2026-002
+CLASSIFICATION: INTERNAL`;
+
+ $("mailTo").value=a.email;
+ $("mailSubject").value="D-TECH CORPORATION | Notificación sobre su solicitud";
+ $("mailBody").value=body;
+ $("copyResult").textContent="Correo de rechazo preparado para "+a.name+".";
+ $("emailComposer").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+async function deleteApplication(a){
+ if(!confirm("¿Eliminar permanentemente la solicitud "+a.reference+"?"))return;
+
+ try{
+  await api("/api/admin/delete",{reference:a.reference});
+  await loadApplications();
+  await loadActivity();
+ }catch(e){alert(e.message)}
+}
+
+async function loadActivity(){
+ const root=$("activity");
+
+ try{
+  const data=await getApi("/api/admin/activity");
+  root.replaceChildren();
+
+  if(!Array.isArray(data)||!data.length){
+   root.append(element("div","Sin actividad registrada.","empty"));
+   return;
+  }
+
+  data.slice().reverse().forEach(item=>{
+   const text=
+    item.date+" — "+item.action+
+    (item.reference?" | "+item.reference:"");
+
+   root.append(element("div",text,"activity-item"));
+  });
+
+ }catch(e){
+  root.replaceChildren(element("div",e.message,"empty"));
+ }
+}
+
+async function logout(send=true){
+ if(send){
+  try{
+   await api("/api/admin/logout",{});
+  }catch(e){}
+ }
+
+ $("panel").style.display="none";
+ $("login").style.display="block";
+ $("password").value="";
+ $("error").textContent="";
+ $("applications").replaceChildren();
+ $("activity").replaceChildren();
+ $("mailTo").value="";
+ $("mailBody").value="";
+ $("copyResult").textContent="";
+}
+
+$("password").addEventListener("keydown",event=>{
+ if(event.key==="Enter")login();
+});
+
+function prepareEmail(a){
+ const body=`D-TECH CORPORATION
+Departamento de Recursos Humanos
+COMUNICACIÓN OFICIAL — CONFIDENCIAL
+
+Estimado/a ${a.name}:
+
+Nos complace informarle que, tras completar satisfactoriamente nuestro proceso de evaluación y selección, ha sido seleccionado/a para incorporarse a D-TECH CORPORATION.
+
+Su perfil ha sido seleccionado para formar parte de nuestra organización, participando en el desarrollo, investigación, administración y supervisión de tecnologías y sistemas de D-TECH.
+
+INFORMACIÓN DE CONTRATACIÓN
+
+Estado: SELECCIONADO
+Departamento: ${a.department||"Por asignar"}
+Cargo: ${a.position||"Personal de D-TECH"}
+Nivel de acceso: Pendiente de evaluación
+Fecha de incorporación: Por confirmar
+Identificación corporativa: Pendiente de registro
+
+CONDICIONES DE INCORPORACIÓN
+
+Como nuevo integrante de D-TECH, deberá cumplir con las normativas internas, protocolos de seguridad y procedimientos operativos establecidos por la organización.
+
+Asimismo, tendrá acceso progresivo a los recursos y sistemas correspondientes a su nivel de autorización.
+
+La divulgación no autorizada de información corporativa, documentación interna o investigaciones clasificadas podrá resultar en la revocación de sus credenciales, conforme a las políticas internas aplicables.
+
+SIGUIENTE PASO
+
+Para continuar con el proceso de incorporación, deberá confirmar su aceptación de esta oferta de contratación mediante una respuesta a este correo.
+
+Le damos la bienvenida a D-TECH CORPORATION.
+
+Atentamente,
+
+DEPARTAMENTO DE RECURSOS HUMANOS
+D-TECH CORPORATION
+
+Technology. Research. Control. Protect.
+
+D-TECH // HUMAN RESOURCES DIVISION
+DOCUMENT ID: HR-2026-001
+CLASSIFICATION: INTERNAL`;
+
+ $("mailTo").value=a.email;
+ $("mailSubject").value="D-TECH CORPORATION | Notificación de contratación";
+ $("mailBody").value=body;
+ $("copyResult").textContent="Correo preparado para "+a.name+".";
+ $("emailComposer").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+async function copyText(text){
+ try{
+  await navigator.clipboard.writeText(text);
+  return true;
+ }catch(e){
+  const temp=document.createElement("textarea");
+  temp.value=text;
+  temp.style.position="fixed";
+  temp.style.opacity="0";
+  document.body.append(temp);
+  temp.select();
+  const success=document.execCommand("copy");
+  temp.remove();
+  return success;
+ }
+}
+
+async function copyBody(){
+ const success=await copyText($("mailBody").value);
+ $("copyResult").textContent=success?
+  "Contenido copiado correctamente.":
+  "No se pudo copiar el contenido.";
+}
+
+async function copyEmail(){
+ const text=
+  "Para: "+$("mailTo").value+
+  "\nAsunto: "+$("mailSubject").value+
+  "\n\n"+$("mailBody").value;
+
+ const success=await copyText(text);
+ $("copyResult").textContent=success?
+  "Correo completo copiado. ¡Listo para Gmail!":
+  "No se pudo copiar el correo.";
+}
+</script>
+</body>
+</html>
